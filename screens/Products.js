@@ -9,7 +9,7 @@ export default function Products({ navigation }) {
 
   useEffect(() => {
     setLoading(true);
-    fetch("http://172.20.10.2:3000/produits").then((response) =>
+    fetch("http://192.168.1.20:3000/produits").then((response) =>
         //172.20.10.3
       response
         .json()

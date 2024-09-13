@@ -15,6 +15,16 @@ const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
 // Stack Navigator pour les écrans qui ne doivent pas apparaître dans le drawer
+
+const HomeStackNavigator = () => {
+    return (
+        <Stack.Navigator initialRouteName="Home">
+            <Stack.Screen name="Accueil" component={Home} />
+            <Stack.Screen name="ProductCard" component={ProductCard} />
+        </Stack.Navigator>
+    );
+};
+
 const ProductStackNavigator = () => {
   return (
     <Stack.Navigator initialRouteName="Product">
@@ -39,7 +49,7 @@ const Navigation = () => {
       <Drawer.Navigator initialRouteName={"Home"}>
         <Drawer.Screen
           name="Home"
-          component={Home}
+          component={HomeStackNavigator}
           options={() => ({
             header: (props) => <Navbar {...props} title="Accueil"></Navbar>,
           })}

@@ -18,11 +18,13 @@ const ProductCard = ({ route }) => {
                     uri:"https://cdn.pixabay.com/photo/2013/09/18/18/24/chocolate-183543_1280.jpg"
                 }}
             />
-            <Text style={GlobalStyles.title}>Prix : {item.prix_unitaire_HT} €</Text>
+            <Text style={GlobalStyles.title}>Prix : {item.prixUnitaireHT} €</Text>
             <Text style={GlobalStyles.title}>Quantité : {item.quantite}</Text>
             <Text style={GlobalStyles.title}>Stock : {item.stock}</Text>
             <Text style={GlobalStyles.title}>Référence : {item.reference}</Text>
-            <Text style={GlobalStyles.title}>MARCUS : {item.poids_piece}</Text>
+            {item.poidsPiece != null && (
+                <Text style={GlobalStyles.title}>Poids : {item.poidsPiece} grammes</Text>
+            )}
         </View>
     );
 }

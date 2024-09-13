@@ -9,7 +9,7 @@ export default function Commandes({ navigation }) {
 
     useEffect(() => {
         setLoading(true);
-        fetch("http://172.20.10.2:3000/commandes/:email").then((response) =>
+        fetch("http://192.168.1.20:3000/commandes/:email").then((response) =>
             response
                 .json()
                 .then((data) => {

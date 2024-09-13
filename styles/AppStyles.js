@@ -7,6 +7,12 @@ export const GlobalStyles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  itemContainer: {
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginHorizontal: 10,
+  },
   text: {
     fontFamily: "Inter_600SemiBold",
     fontSize: 15,

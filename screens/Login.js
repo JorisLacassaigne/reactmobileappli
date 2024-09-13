@@ -15,7 +15,7 @@ const Login = ({ navigation }) => {
   const handleLogin = async () => {
     try {
       console.log(email, passWord);
-      const response = await fetch("http://172.20.10.2:3000/login", {
+      const response = await fetch("http://192.168.1.20:3000/login", {
         //172.20.10.3
           method: "POST",
         headers: { "Content-Type": "application/json" },
