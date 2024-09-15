@@ -10,6 +10,7 @@ import ProductCard from "../screens/ProductCard";
 import ListModal from "../screens/ListModal";
 import Commandes from "../screens/Commandes";
 import CommandeCard from "../screens/CommandeCard";
+import CartPage from "../screens/CartPage";
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -61,6 +62,13 @@ const Navigation = () => {
             header: (props) => <Navbar {...props} title="Products"></Navbar>,
           })}
         />
+          <Drawer.Screen
+              name="Panier"
+              component={CartPage}
+              options={() => ({
+                  header: (props) => <Navbar {...props} title="Panier"></Navbar>,
+              })}
+          />
         <Drawer.Screen
             name="Commandes"
             component={CommandeStackNavigator}

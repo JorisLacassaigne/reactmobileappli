@@ -8,6 +8,7 @@ import {
   Inter_600SemiBold,
   Inter_900Black,
 } from "@expo-google-fonts/inter";
+import {CartProvider} from "./components/CartContext";
 
 // Permet de laisser en place le splash screen pendant le chargement
 SplashScreen.preventAutoHideAsync();
@@ -36,8 +37,10 @@ export default function App() {
   }
 
   return (
-    <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
-      <Navigation />
-    </View>
+      <CartProvider>
+        <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
+          <Navigation />
+        </View>
+      </CartProvider>
   );
 }
