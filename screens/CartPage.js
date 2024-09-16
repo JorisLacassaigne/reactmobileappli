@@ -5,6 +5,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage'; // Pour st
 import { GlobalStyles } from "../styles/AppStyles";
 import { CartContext } from '../components/CartContext';
 import { useNavigation } from '@react-navigation/native'; // Pour naviguer vers la page de login
+import { useAuth } from "../components/AuthContext"; // Pour avoir la variable du client
+
 
 const CartPage = () => {
     const { cart, removeFromCart, updateCartItem, clearCart } = useContext(CartContext);

@@ -1,7 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { Button, Image, Text, TextInput, View, TouchableOpacity } from 'react-native';
 import { GlobalStyles } from "../styles/AppStyles";
-import { CartContext } from '../components/CartContext';
+import { CartContext } from '../components/CartContext'
+import { useAuth } from "../components/AuthContext";
+
 
 const ProductCard = ({ route }) => {
     const { item } = route.params;

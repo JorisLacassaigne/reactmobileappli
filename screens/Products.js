@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
 import { GlobalStyles } from "../styles/AppStyles";
+import { useAuth } from "../components/AuthContext";
+
 
 export default function Products({ navigation }) {
   const [data, setData] = useState([]);

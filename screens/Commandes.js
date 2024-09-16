@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
 import { GlobalStyles } from "../styles/AppStyles";
+import { useAuth } from "../components/AuthContext";
+
 
 export default function Commandes({ navigation }) {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-
+    const { email } = useAuth();
+    
     useEffect(() => {
         setLoading(true);
-        fetch("https://apimobile.jlacassaigne.v70208.campus-centre.fr/commandes/:email").then((response) =>
+        fetch(`https://apimobile.jlacassaigne.v70208.campus-centre.fr/commande/email/${email}`).then((response) =>
             response
                 .json()
                 .then((data) => {

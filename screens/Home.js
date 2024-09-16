@@ -7,6 +7,8 @@ const Home = ({ navigation }) => {
     const [newProducts, setNewProducts] = useState([]);
     const [popularProducts, setPopularProducts] = useState([]);
     const [loading, setLoading] = useState(true);
+    import { useAuth } from "../components/AuthContext";
+
 
     const defaultImage = "https://cdn.pixabay.com/photo/2013/09/18/18/24/chocolate-183543_1280.jpg"; // Remplace par l'URL de ton image par défaut
     const { width } = Dimensions.get('window');

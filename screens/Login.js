@@ -3,16 +3,18 @@ import { Button, Text, TextInput, View } from "react-native";
 import { GlobalStyles } from "../styles/AppStyles";
 import * as SecureStore from "expo-secure-store";
 import {jwtDecode} from "jwt-decode";
+import { useAuth } from "../components/AuthContext";
 
 const Login = ({ navigation }) => {
   // Définition de 2 variable (obligatoire à chaque formulaire)
   const [email, setEmail] = useState("");
   const [passWord, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
+  const { saveToken, saveUser, saveEmail } = useAuth();
 
-  async function saveToken(key, value) {
+  /* async function saveToken(key, value) {
     await SecureStore.setItemAsync(key, value);
-  }
+  } */
 
 
   const handleLogin = async () => {
@@ -28,12 +30,21 @@ const Login = ({ navigation }) => {
       if (response.ok) {
         const data = await response.json();
 
-        /* Stocker le token dans le stockage sécurisé */
-        await saveToken("token", data.token);
+          // Stocker le token dans le contexte
+          await saveToken(data.token);
 
-          // Décoder le token
+        /* Stocker le token dans le stockage sécurisé */
+          //await saveToken("token", data.token);
+
+          /* Décoder le token */
           const decodedToken = jwtDecode(data.token);
           console.log("Decoded Token:", decodedToken);
+
+          // Stocker les informations de l'utilisateur dans le contexte
+          saveUser(decodedToken);
+
+          // Stocker l'email dans le contexte
+          saveEmail(email);
 
         /* Redirection vers la page souhiatée */
         navigation.navigate("Home");

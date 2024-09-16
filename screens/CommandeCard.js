@@ -1,6 +1,8 @@
 import React from 'react';
 import {Image, Text, View} from 'react-native';
 import {GlobalStyles} from "../styles/AppStyles";
+import { useAuth } from "../components/AuthContext";
+
 
 const CommandeCard = ({ route }) => {
     const {item} = route.params;
