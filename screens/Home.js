@@ -2,16 +2,19 @@ import React, { useState, useEffect } from "react";
 import { View, Text, Image, ActivityIndicator, TouchableOpacity, Dimensions } from "react-native";
 import Carousel from 'react-native-reanimated-carousel';
 import { GlobalStyles } from "../styles/AppStyles";
+import { useAuth } from "../components/AuthContext";
+
 
 const Home = ({ navigation }) => {
     const [newProducts, setNewProducts] = useState([]);
     const [popularProducts, setPopularProducts] = useState([]);
     const [loading, setLoading] = useState(true);
-    import { useAuth } from "../components/AuthContext";
 
 
     const defaultImage = "https://cdn.pixabay.com/photo/2013/09/18/18/24/chocolate-183543_1280.jpg"; // Remplace par l'URL de ton image par défaut
     const { width } = Dimensions.get('window');
+    const { email } = useAuth();
+
 
     useEffect(() => {
         fetch("https://apimobile.jlacassaigne.v70208.campus-centre.fr/produits/new")

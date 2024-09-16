@@ -11,10 +11,12 @@ const Login = ({ navigation }) => {
   const [passWord, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
   const { saveToken, saveUser, saveEmail } = useAuth();
+  const { mail } = useAuth();
 
-  /* async function saveToken(key, value) {
-    await SecureStore.setItemAsync(key, value);
-  } */
+
+    /* async function saveToken(key, value) {
+      await SecureStore.setItemAsync(key, value);
+    } */
 
 
   const handleLogin = async () => {

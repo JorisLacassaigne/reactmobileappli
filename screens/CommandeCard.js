@@ -6,7 +6,8 @@ import { useAuth } from "../components/AuthContext";
 
 const CommandeCard = ({ route }) => {
     const {item} = route.params;
-    console.log(route);
+    const { email } = useAuth();
+
 
 
     return (

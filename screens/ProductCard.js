@@ -9,6 +9,8 @@ const ProductCard = ({ route }) => {
     const { item } = route.params;
     const { addToCart } = useContext(CartContext);
     const [quantite_demande, setQuantiteDemande] = useState(1); // Quantité par défaut
+    const { email } = useAuth();
+
 
     // Incrémenter la quantité
     const incrementQuantity = () => {

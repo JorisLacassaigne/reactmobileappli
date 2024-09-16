@@ -8,8 +8,10 @@ export default function Products({ navigation }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const { email } = useAuth();
 
-  useEffect(() => {
+
+    useEffect(() => {
     setLoading(true);
     fetch("https://apimobile.jlacassaigne.v70208.campus-centre.fr/produits").then((response) =>
         //172.20.10.3

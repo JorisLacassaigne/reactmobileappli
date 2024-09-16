@@ -15,6 +15,7 @@ const CartPage = () => {
     const [isModalVisible, setModalVisible] = useState(false); // Gestion de la visibilité de la modale de connexion
     const [isConfirmationModalVisible, setConfirmationModalVisible] = useState(false); // Gestion de la visibilité de la modale de confirmation
     const navigation = useNavigation(); // Hook pour la navigation
+    const { email } = useAuth();
 
     // Récupérer et décoder le token JWT au chargement de la page
     useEffect(() => {
@@ -61,7 +62,7 @@ const CartPage = () => {
 
     // Fonction pour passer la commande
     const handleOrder = () => {
-        if (!clientId) {
+        if (!email) {
             setModalVisible(true); // Si l'ID client est introuvable, afficher la modale
             return;
         }
