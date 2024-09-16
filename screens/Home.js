@@ -12,14 +12,14 @@ const Home = ({ navigation }) => {
     const { width } = Dimensions.get('window');
 
     useEffect(() => {
-        fetch("http://192.168.1.20:3000/produits/new")
+        fetch("https://apimobile.jlacassaigne.v70208.campus-centre.fr/produits/new")
             .then(response => response.json())
             .then(data => setNewProducts(data))
             .catch(error => console.error(error));
     }, []);
 
     useEffect(() => {
-        fetch("http://192.168.1.20:3000/produits/popular")
+        fetch("https://apimobile.jlacassaigne.v70208.campus-centre.fr/produits/popular")
             .then(response => response.json())
             .then(data => {
                 setPopularProducts(data);

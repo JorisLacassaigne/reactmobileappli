@@ -9,7 +9,7 @@ export default function Products({ navigation }) {
 
   useEffect(() => {
     setLoading(true);
-    fetch("http://192.168.1.20:3000/produits").then((response) =>
+    fetch("https://apimobile.jlacassaigne.v70208.campus-centre.fr/produits").then((response) =>
         //172.20.10.3
       response
         .json()

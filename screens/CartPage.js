@@ -82,7 +82,7 @@ const CartPage = () => {
 
         // Requête POST à l'API avec le corps de la commande
         try {
-            const response = await fetch('http://ton_api_url/commande', {
+            const response = await fetch('https://apimobile.jlacassaigne.v70208.campus-centre.fr/commande', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
