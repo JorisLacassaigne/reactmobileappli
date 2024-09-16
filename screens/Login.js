@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, Text, TextInput, View } from "react-native";
 import { GlobalStyles } from "../styles/AppStyles";
 import * as SecureStore from "expo-secure-store";
+import {jwtDecode} from "jwt-decode";
 
 const Login = ({ navigation }) => {
   // Définition de 2 variable (obligatoire à chaque formulaire)
@@ -12,6 +13,8 @@ const Login = ({ navigation }) => {
   async function saveToken(key, value) {
     await SecureStore.setItemAsync(key, value);
   }
+
+
   const handleLogin = async () => {
     try {
       console.log(email, passWord);
@@ -27,6 +30,10 @@ const Login = ({ navigation }) => {
 
         /* Stocker le token dans le stockage sécurisé */
         await saveToken("token", data.token);
+
+          // Décoder le token
+          const decodedToken = jwtDecode(data.token);
+          console.log("Decoded Token:", decodedToken);
 
         /* Redirection vers la page souhiatée */
         navigation.navigate("Home");
