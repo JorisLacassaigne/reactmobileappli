@@ -102,7 +102,7 @@ const CartPage = () => {
                 },
                 body: JSON.stringify(commandeData),
             });
-
+            console.log(response);
             const result = await response.json();
 
             if (response.ok) {
