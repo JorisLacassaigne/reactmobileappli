@@ -8,11 +8,11 @@ import { useAuth } from "../components/AuthContext";
 const Login = ({ navigation }) => {
   // Définition de 2 variable (obligatoire à chaque formulaire)
   const [email, setEmail] = useState("");
+  const [codec, setCodec] = useState("");
   const [passWord, setPassword] = useState("");
+  const [clientCodec, setClientCodec] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
-  const { saveToken, saveUser, saveEmail, saveClientId } = useAuth();
-
-
+  const { saveToken, saveUser, saveEmail, saveCodec } = useAuth();
 
     /* async function saveToken(key, value) {
       await SecureStore.setItemAsync(key, value);
@@ -21,14 +21,14 @@ const Login = ({ navigation }) => {
 
   const handleLogin = async () => {
     try {
-      console.log(email, passWord);
+      console.log(email, passWord, codec);
       const response = await fetch("https://apimobile.jlacassaigne.v70208.campus-centre.fr/login", {
         //172.20.10.3
           method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email, motdepasse: passWord }),
+        body: JSON.stringify({ email: email, motdepasse: passWord, codec: clientCodec }),
       });
-      // console.log(response);
+      console.log(clientCodec);
       if (response.ok) {
         const data = await response.json();
 
@@ -49,7 +49,7 @@ const Login = ({ navigation }) => {
           saveEmail(email);
 
           // Stocker le codec dans le contexte
-          saveClientId(codec);
+          saveCodec(decodedToken.codec);
 
         /* Redirection vers la page souhiatée */
         navigation.navigate("Home");

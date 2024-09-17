@@ -15,8 +15,8 @@ const CartPage = () => {
     const [isModalVisible, setModalVisible] = useState(false); // Gestion de la visibilité de la modale de connexion
     const [isConfirmationModalVisible, setConfirmationModalVisible] = useState(false); // Gestion de la visibilité de la modale de confirmation
     const navigation = useNavigation(); // Hook pour la navigation
-    const { email } = useAuth();
-    const { clientId } = useAuth();
+    const { email, codec } = useAuth();
+
 
     // Récupérer et décoder le token JWT au chargement de la page
     useEffect(() => {
@@ -64,7 +64,7 @@ const CartPage = () => {
     // Fonction pour passer la commande
     const handleOrder = () => {
         if (!email) {
-            setModalVisible(true); // Si l'ID client est introuvable, afficher la modale
+            setModalVisible(true); // Si l'email client est introuvable, afficher la modale
             return;
         }
 
@@ -77,14 +77,20 @@ const CartPage = () => {
         // Construire les données de la commande
         const commandeData = {
             codev: 10,
-            codec: clientId,
+            codec: codec,
+            dateLivraison: new Date().toISOString(),
             dateCommande: new Date().toISOString(),
             totalHT: calculateCartTotal(),
+            totalTVA: calculateCartTotal(),
+            etat: 1,
             lignesCommande: cart.map(item => ({
                 reference: item.reference,
                 quantite_demandee: item.quantite_demande
+
             }))
+
         };
+        console.log(commandeData);
 
         // Requête POST à l'API avec le corps de la commande
         try {

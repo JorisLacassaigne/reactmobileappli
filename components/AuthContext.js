@@ -7,7 +7,7 @@ export const AuthProvider = ({ children }) => {
     const [token, setToken] = useState(null);
     const [user, setUser] = useState(null);
     const [email, setEmail] = useState(null);
-    const [clientId, setClientId] = useState(null);
+    const [codec, setCodec] = useState(null);
 
     const saveToken = async (newToken) => {
         setToken(newToken);
@@ -22,12 +22,12 @@ export const AuthProvider = ({ children }) => {
         setEmail(userEmail);
     };
 
-    const saveClientId = (userClientId) => {
-        setClientId(userClientId);
+    const saveCodec = (userCodec) => {
+        setCodec(userCodec);
     };
 
     return (
-        <AuthContext.Provider value={{ token, saveToken, user, saveUser, email, saveEmail, clientId, saveClientId }}>
+        <AuthContext.Provider value={{ token, saveToken, user, saveUser, email, saveEmail, codec, saveCodec }}>
             {children}
         </AuthContext.Provider>
     );
