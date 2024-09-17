@@ -1,21 +1,22 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { Button, FlatList, Text, TextInput, View, TouchableOpacity, Alert, Modal, Pressable } from 'react-native';
-import jwtDecode from 'jwt-decode'; // Pour décoder le token JWT
+import React, {useContext, useEffect, useState} from 'react';
+import {Alert, Button, FlatList, Modal, Pressable, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {jwtDecode} from 'jwt-decode'; // Pour décoder le token JWT
 import AsyncStorage from '@react-native-async-storage/async-storage'; // Pour stocker/récupérer le token JWT
-import { GlobalStyles } from "../styles/AppStyles";
-import { CartContext } from '../components/CartContext';
-import { useNavigation } from '@react-navigation/native'; // Pour naviguer vers la page de login
-import { useAuth } from "../components/AuthContext"; // Pour avoir la variable du client
+import {GlobalStyles} from "../styles/AppStyles";
+import {CartContext} from '../components/CartContext';
+import {useNavigation} from '@react-navigation/native'; // Pour naviguer vers la page de login
+import {useAuth} from "../components/AuthContext"; // Pour avoir la variable du client
 
 
 const CartPage = () => {
     const { cart, removeFromCart, updateCartItem, clearCart } = useContext(CartContext);
-    const [clientId, setClientId] = useState(null);
+    const [client, setClient] = useState(null);
     const [token, setToken] = useState(null);
     const [isModalVisible, setModalVisible] = useState(false); // Gestion de la visibilité de la modale de connexion
     const [isConfirmationModalVisible, setConfirmationModalVisible] = useState(false); // Gestion de la visibilité de la modale de confirmation
     const navigation = useNavigation(); // Hook pour la navigation
     const { email } = useAuth();
+    const { clientId } = useAuth();
 
     // Récupérer et décoder le token JWT au chargement de la page
     useEffect(() => {
@@ -24,7 +25,7 @@ const CartPage = () => {
                 const token = await AsyncStorage.getItem('jwtToken'); // Récupérer le token JWT stocké
                 if (token) {
                     const decoded = jwtDecode(token); // Décoder le JWT
-                    setClientId(decoded.id); // Récupérer l'ID du client depuis le token
+                    setClient(decoded.id); // Récupérer l'ID du client depuis le token
                     setToken(token); // Stocker le token pour les requêtes
                 } else {
                     setModalVisible(true); // Si pas de token, afficher la modale
@@ -75,6 +76,8 @@ const CartPage = () => {
     const confirmOrder = async () => {
         // Construire les données de la commande
         const commandeData = {
+            codev: 10,
+            codec: clientId,
             dateCommande: new Date().toISOString(),
             totalHT: calculateCartTotal(),
             lignesCommande: cart.map(item => ({

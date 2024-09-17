@@ -10,8 +10,8 @@ const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [passWord, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
-  const { saveToken, saveUser, saveEmail } = useAuth();
-  const { mail } = useAuth();
+  const { saveToken, saveUser, saveEmail, saveClientId } = useAuth();
+
 
 
     /* async function saveToken(key, value) {
@@ -47,6 +47,9 @@ const Login = ({ navigation }) => {
 
           // Stocker l'email dans le contexte
           saveEmail(email);
+
+          // Stocker le codec dans le contexte
+          saveClientId(codec);
 
         /* Redirection vers la page souhiatée */
         navigation.navigate("Home");
