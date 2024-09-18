@@ -10,7 +10,6 @@ const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [codec, setCodec] = useState("");
   const [passWord, setPassword] = useState("");
-  const [clientCodec, setClientCodec] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
   const { saveToken, saveUser, saveEmail, saveCodec } = useAuth();
 
@@ -23,12 +22,15 @@ const Login = ({ navigation }) => {
     try {
       console.log(email, passWord, codec);
       const response = await fetch("https://apimobile.jlacassaigne.v70208.campus-centre.fr/login", {
-        //172.20.10.3
           method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email, motdepasse: passWord, codec: clientCodec }),
+        body: JSON.stringify({ email: email, motdepasse: passWord }),
       });
-      console.log(clientCodec);
+
+
+
+
+
       if (response.ok) {
         const data = await response.json();
 

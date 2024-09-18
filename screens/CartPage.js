@@ -76,10 +76,10 @@ const CartPage = () => {
     const confirmOrder = async () => {
         // Construire les données de la commande
         const commandeData = {
-            codev: 10,
+            codev: 10,  // 10 car ajout du vendeur par défaut
             codec: codec,
-            dateLivraison: new Date().toISOString(),
             dateCommande: new Date().toISOString(),
+            dateLivraison: null,
             totalHT: calculateCartTotal(),
             totalTVA: calculateCartTotal(),
             etat: 1,
@@ -98,7 +98,7 @@ const CartPage = () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`, // Inclure le token JWT dans les headers
+                    //'Authorization': `Bearer ${token}`, // Inclure le token JWT dans les headers
                 },
                 body: JSON.stringify(commandeData),
             });

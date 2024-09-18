@@ -1,5 +1,4 @@
-// AuthContext.js
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
 const AuthContext = createContext();
 
@@ -9,25 +8,24 @@ export const AuthProvider = ({ children }) => {
     const [email, setEmail] = useState(null);
     const [codec, setCodec] = useState(null);
 
-    const saveToken = async (newToken) => {
-        setToken(newToken);
-        // Vous pouvez également stocker le token dans SecureStore ici si nécessaire
+    const saveToken = (token) => {
+        setToken(token);
     };
 
-    const saveUser = (userData) => {
-        setUser(userData);
+    const saveUser = (user) => {
+        setUser(user);
     };
 
-    const saveEmail = (userEmail) => {
-        setEmail(userEmail);
+    const saveEmail = (email) => {
+        setEmail(email);
     };
 
-    const saveCodec = (userCodec) => {
-        setCodec(userCodec);
+    const saveCodec = (codec) => {
+        setCodec(codec);
     };
 
     return (
-        <AuthContext.Provider value={{ token, saveToken, user, saveUser, email, saveEmail, codec, saveCodec }}>
+        <AuthContext.Provider value={{ token, user, email, codec, saveToken, saveUser, saveEmail, saveCodec }}>
             {children}
         </AuthContext.Provider>
     );
