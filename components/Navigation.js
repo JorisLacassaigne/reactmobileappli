@@ -29,8 +29,8 @@ const HomeStackNavigator = () => {
 const ProductStackNavigator = () => {
   return (
     <Stack.Navigator initialRouteName="Product">
-      <Stack.Screen name="ProductList" component={Products} />
-      <Stack.Screen name="ProductCard" component={ProductCard} />
+      <Stack.Screen name="Liste" component={Products} />
+      <Stack.Screen name="Le produit" component={ProductCard} />
     </Stack.Navigator>
   );
 };
@@ -38,7 +38,7 @@ const ProductStackNavigator = () => {
 const CommandeStackNavigator = () => {
     return (
         <Stack.Navigator initialRouteName="Commandes">
-            <Stack.Screen name="CommandeList" component={Commandes} />
+            <Stack.Screen name="Liste des vos commandes" component={Commandes} />
             <Stack.Screen name="CommandeCard" component={CommandeCard} />
         </Stack.Navigator>
     );
@@ -59,7 +59,7 @@ const Navigation = () => {
           name="Produits"
           component={ProductStackNavigator}
           options={() => ({
-            header: (props) => <Navbar {...props} title="Products"></Navbar>,
+            header: (props) => <Navbar {...props} title="Produits"></Navbar>,
           })}
         />
           <Drawer.Screen
@@ -80,16 +80,16 @@ const Navigation = () => {
           name="Login"
           component={Login}
           options={() => ({
-            header: (props) => <Navbar {...props} title="Login"></Navbar>,
+            header: (props) => <Navbar {...props} title="Connexion"></Navbar>,
           })}
         />
-        <Drawer.Screen
-          name="ListModal"
-          component={ListModal}
-          options={() => ({
-            header: (props) => <Navbar {...props} title="ListModal"></Navbar>,
-          })}
-        />
+        {/*<Drawer.Screen*/}
+        {/*  name="ListModal"*/}
+        {/*  component={ListModal}*/}
+        {/*  options={() => ({*/}
+        {/*    header: (props) => <Navbar {...props} title="ListModal"></Navbar>,*/}
+        {/*  })}*/}
+        {/*/>*/}
       </Drawer.Navigator>
     </NavigationContainer>
   );

@@ -1,12 +1,11 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {Alert, Button, FlatList, Modal, Pressable, Text, TextInput, TouchableOpacity, View} from 'react-native';
-import {jwtDecode} from 'jwt-decode'; // Pour décoder le token JWT
+import React, { useContext, useEffect, useState } from 'react';
+import { Alert, Button, FlatList, Modal, Pressable, Text, TextInput, TouchableOpacity, View, StyleSheet } from 'react-native';
+import { jwtDecode } from 'jwt-decode'; // Pour décoder le token JWT
 import AsyncStorage from '@react-native-async-storage/async-storage'; // Pour stocker/récupérer le token JWT
-import {GlobalStyles} from "../styles/AppStyles";
-import {CartContext} from '../components/CartContext';
-import {useNavigation} from '@react-navigation/native'; // Pour naviguer vers la page de login
-import {useAuth} from "../components/AuthContext"; // Pour avoir la variable du client
-
+import { GlobalStyles } from "../styles/AppStyles";
+import { CartContext } from '../components/CartContext';
+import { useNavigation } from '@react-navigation/native'; // Pour naviguer vers la page de login
+import { useAuth } from "../components/AuthContext"; // Pour avoir la variable du client
 
 const CartPage = () => {
     const { cart, removeFromCart, updateCartItem, clearCart } = useContext(CartContext);
@@ -16,7 +15,6 @@ const CartPage = () => {
     const [isConfirmationModalVisible, setConfirmationModalVisible] = useState(false); // Gestion de la visibilité de la modale de confirmation
     const navigation = useNavigation(); // Hook pour la navigation
     const { email, codec } = useAuth();
-
 
     // Récupérer et décoder le token JWT au chargement de la page
     useEffect(() => {
@@ -86,9 +84,7 @@ const CartPage = () => {
             lignesCommande: cart.map(item => ({
                 reference: item.reference,
                 quantite_demandee: item.quantite_demande
-
             }))
-
         };
         console.log(commandeData);
 
@@ -125,55 +121,55 @@ const CartPage = () => {
     };
 
     return (
-        <View style={GlobalStyles.item}>
-            <Text style={GlobalStyles.title}>Panier</Text>
+        <View style={styles.container}>
+            <Text style={styles.title}>Panier</Text>
             {cart.length === 0 ? (
-                <Text style={GlobalStyles.text}>Votre panier est vide</Text>
+                <Text style={styles.emptyText}>Votre panier est vide</Text>
             ) : (
                 <>
                     <FlatList
                         data={cart}
                         keyExtractor={(item) => item.reference.toString()}
                         renderItem={({ item }) => (
-                            <View style={GlobalStyles.itemContainer}>
-                                <Text style={GlobalStyles.text}>{item.designation}</Text>
-                                <Text>Prix Unitaire : {item.prixUnitaireHT} €</Text>
+                            <View style={styles.itemContainer}>
+                                <Text style={styles.itemTitle}>{item.designation}</Text>
+                                <Text style={styles.itemPrice}>Prix Unitaire : {item.prixUnitaireHT} €</Text>
 
                                 {/* Boutons + et - pour ajuster la quantité */}
-                                <View style={GlobalStyles.quantityContainer}>
-                                    <TouchableOpacity onPress={() => decrementQuantity(item)} style={GlobalStyles.button}>
-                                        <Text>-</Text>
+                                <View style={styles.quantityContainer}>
+                                    <TouchableOpacity onPress={() => decrementQuantity(item)} style={styles.quantityButton}>
+                                        <Text style={styles.quantityButtonText}>-</Text>
                                     </TouchableOpacity>
                                     <TextInput
-                                        style={GlobalStyles.input}
+                                        style={styles.quantityInput}
                                         value={item.quantite_demande.toString()}
                                         onChangeText={(text) => updateCartItem(item.reference, parseInt(text) || 1)}
                                         keyboardType="numeric"
                                     />
-                                    <TouchableOpacity onPress={() => incrementQuantity(item)} style={GlobalStyles.button}>
-                                        <Text>+</Text>
+                                    <TouchableOpacity onPress={() => incrementQuantity(item)} style={styles.quantityButton}>
+                                        <Text style={styles.quantityButtonText}>+</Text>
                                     </TouchableOpacity>
                                 </View>
 
                                 {/* Calcul du prix total pour l'article */}
-                                <Text>Total : {calculateTotalPrice(item)} €</Text>
+                                <Text style={styles.itemTotal}>Total : {calculateTotalPrice(item)} €</Text>
 
                                 <Button
-                                    style={GlobalStyles.buttonWarning}
                                     title="Retirer du panier"
                                     onPress={() => removeFromCart(item.reference)}
+                                    color="#ff4500"
                                 />
                             </View>
                         )}
                     />
 
                     {/* Affichage du total du panier */}
-                    <View>
-                        <Text style={GlobalStyles.title}>Total du Panier : {calculateCartTotal()} €</Text>
+                    <View style={styles.totalContainer}>
+                        <Text style={styles.totalText}>Total du Panier : {calculateCartTotal()} €</Text>
                     </View>
 
                     {/* Bouton pour passer la commande */}
-                    <Button title="Passer la commande" onPress={handleOrder} />
+                    <Button title="Passer la commande" onPress={handleOrder} color="#841584" />
 
                     {/* Modale pour proposer de se connecter */}
                     <Modal
@@ -182,14 +178,14 @@ const CartPage = () => {
                         visible={isModalVisible}
                         onRequestClose={() => setModalVisible(false)}
                     >
-                        <View style={GlobalStyles.modalContainer}>
-                            <View style={GlobalStyles.modalView}>
-                                <Text style={GlobalStyles.modalText}>Vous devez être connecté pour passer une commande.</Text>
+                        <View style={styles.modalContainer}>
+                            <View style={styles.modalView}>
+                                <Text style={styles.modalText}>Vous devez être connecté pour passer une commande.</Text>
                                 <Pressable
-                                    style={[GlobalStyles.button, GlobalStyles.buttonValidate]}
+                                    style={[styles.button, styles.buttonValidate]}
                                     onPress={redirectToLogin}
                                 >
-                                    <Text style={GlobalStyles.text}>Se connecter</Text>
+                                    <Text style={styles.buttonText}>Se connecter</Text>
                                 </Pressable>
                             </View>
                         </View>
@@ -202,20 +198,20 @@ const CartPage = () => {
                         visible={isConfirmationModalVisible}
                         onRequestClose={() => setConfirmationModalVisible(false)}
                     >
-                        <View style={GlobalStyles.modalContainer}>
-                            <View style={GlobalStyles.modalView}>
-                                <Text style={GlobalStyles.modalText}>Êtes-vous sûr de vouloir passer cette commande ?</Text>
+                        <View style={styles.modalContainer}>
+                            <View style={styles.modalView}>
+                                <Text style={styles.modalText}>Êtes-vous sûr de vouloir passer cette commande ?</Text>
                                 <Pressable
-                                    style={[GlobalStyles.button, GlobalStyles.buttonValidate]}
+                                    style={[styles.button, styles.buttonValidate]}
                                     onPress={confirmOrder}
                                 >
-                                    <Text style={GlobalStyles.text}>Confirmer</Text>
+                                    <Text style={styles.buttonText}>Confirmer</Text>
                                 </Pressable>
                                 <Pressable
-                                    style={[GlobalStyles.button, GlobalStyles.buttonWarning]}
+                                    style={[styles.button, styles.buttonWarning]}
                                     onPress={() => setConfirmationModalVisible(false)}
                                 >
-                                    <Text style={GlobalStyles.text}>Annuler</Text>
+                                    <Text style={styles.buttonText}>Annuler</Text>
                                 </Pressable>
                             </View>
                         </View>
@@ -225,5 +221,130 @@ const CartPage = () => {
         </View>
     );
 };
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        padding: 16,
+        backgroundColor: '#f5f5f5',
+    },
+    title: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginBottom: 16,
+        color: '#333',
+    },
+    emptyText: {
+        fontSize: 18,
+        color: '#555',
+        marginTop: 20,
+    },
+    itemContainer: {
+        backgroundColor: '#fff',
+        borderRadius: 8,
+        padding: 16,
+        marginBottom: 16,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 2,
+        elevation: 2,
+    },
+    itemTitle: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: '#333',
+    },
+    itemPrice: {
+        fontSize: 16,
+        color: '#555',
+        marginTop: 8,
+    },
+    quantityContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: 8,
+    },
+    quantityButton: {
+        backgroundColor: '#841584',
+        padding: 8,
+        borderRadius: 4,
+        marginHorizontal: 5,
+    },
+    quantityButtonText: {
+        color: '#fff',
+        fontSize: 20,
+    },
+    quantityInput: {
+        borderWidth: 1,
+        borderColor: '#ccc',
+        padding: 8,
+        width: 50,
+        textAlign: 'center',
+        borderRadius: 4,
+    },
+    itemTotal: {
+        fontSize: 16,
+        color: '#555',
+        marginTop: 8,
+    },
+    totalContainer: {
+        marginTop: 20,
+        padding: 16,
+        backgroundColor: '#fff',
+        borderRadius: 8,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 2,
+        elevation: 2,
+    },
+    totalText: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#333',
+    },
+    modalContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    modalView: {
+        backgroundColor: '#fff',
+        borderRadius: 8,
+        padding: 20,
+        width: '80%',
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 2,
+        elevation: 5,
+    },
+    modalText: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: '#333',
+        marginBottom: 20,
+    },
+    button: {
+        padding: 10,
+        borderRadius: 4,
+        marginVertical: 5,
+        width: '100%',
+        alignItems: 'center',
+    },
+    buttonValidate: {
+        backgroundColor: '#841584',
+    },
+    buttonWarning: {
+        backgroundColor: '#ff4500',
+    },
+    buttonText: {
+        color: '#fff',
+        fontSize: 16,
+    },
+});
 
 export default CartPage;
